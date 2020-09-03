@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl = `https://api.github.com/users/Sokos6/repos`;
+    const apiUrl = `https://api.github.com/users/Sokos6/repos?page=1&per_page=200`;
     fetch(apiUrl)
       .then((res) => res.json())
       .then((repos) => {
@@ -26,18 +26,17 @@ function App() {
       </div>
       <div className='repo-container'>
         <ListLoading isLoading={appState.loading} repos={appState.repos} />
-        <footer>
-          <div className='footer'>
-            Built{' '}
-            <span role='img' aria-label='love'>
-              with 💚
-            </span>{' '}
-            by Will Sokolowski
-          </div>
-        </footer>
       </div>
+      <footer>
+        <div className='footer'>
+          Built{' '}
+          <span role='img' aria-label='love'>
+          with 💚
+          </span>{' '}
+           by Will Sokolowski
+        </div>
+      </footer>
     </div>
   );
 }
-
 export default App;
