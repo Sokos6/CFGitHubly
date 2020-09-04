@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './App.css';
 import List from './components/List';
 import WithListLoading from './components/WithListLoading';
@@ -12,13 +13,22 @@ function App() {
 
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl = `https://api.github.com/users/Sokos6/repos?page=1&per_page=200`;
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((repos) => {
-        setAppState({ loading: false, repos: repos });
-      });
+    const apiUrl = 'https://api.github.com/users/Sokos6/repos';
+    axios.get(apiUrl).then((repos => {
+      const allRepos = repos.data;
+      setAppState({ loading: false, repos: allRepos });
+    }));
   }, [setAppState]);
+
+  // useEffect(() => {
+  //   setAppState({ loading: true });
+  //   const apiUrl = `https://api.github.com/users/Sokos6/repos?page=1&per_page=200`;
+  //   fetch(apiUrl)
+  //     .then((res) => res.json())
+  //     .then((repos) => {
+  //       setAppState({ loading: false, repos: repos });
+  //     });
+  // }, [setAppState]);
   return (
     <div className='App'>
       <div className='container'>
